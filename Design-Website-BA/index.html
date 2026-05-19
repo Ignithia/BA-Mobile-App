@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Busleyden Atheneum | Homepage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body class="page">
+    <a class="skip-link" href="#home">Sla navigatie over</a>
+    <header class="site-header">
+      <nav class="site-nav page__inner" aria-label="Hoofdnavigatie">
+        <a
+          class="site-nav__brand"
+          href="#home"
+          aria-label="Busleyden Atheneum home"
+        >
+          <img
+            class="site-nav__logo"
+            src="ba-logos/logo-default.png"
+            alt="Busleyden Atheneum"
+          />
+        </a>
+
+        <ul class="site-nav__links">
+          <li class="site-nav__item">
+            <a class="site-nav__link site-nav__link--active" href="#home"
+              >Home</a
+            >
+          </li>
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="#opleidingen">Opleidingen</a>
+          </li>
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="#campussen">Campussen</a>
+          </li>
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="#nieuws">Nieuws</a>
+          </li>
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="#studiezoeker">Studiezoeker</a>
+          </li>
+          <li class="site-nav__item">
+            <a class="site-nav__link" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="home">
+      <section class="hero page__section" aria-labelledby="hero-title">
+        <div class="hero__media" aria-hidden="true">
+          <img
+            src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80"
+            alt=""
+          />
+        </div>
+
+        <div class="hero__overlay"></div>
+
+        <div class="hero__content page__inner">
+          <p class="hero__eyebrow">Secondaire school in Mechelen</p>
+          <h1 class="hero__title" id="hero-title">
+            Samen leren, groeien en kiezen voor een sterke toekomst.
+          </h1>
+          <p class="hero__subtitle">
+            Busleyden Atheneum bundelt stevige basisvorming, moderne opleidingen
+            en meerdere campussen in één duidelijke school.
+          </p>
+          <a class="button button--primary" href="#opleidingen"
+            >Ontdek onze opleidingen</a
+          >
+        </div>
+      </section>
+
+      <section
+        class="products page__section"
+        id="opleidingen"
+        aria-labelledby="products-title"
+      >
+        <div class="page__inner">
+          <div class="section-heading">
+            <p class="section-heading__label">Opleidingen</p>
+            <h2 class="section-heading__title" id="products-title">
+              Wat leerlingen bij BA kunnen volgen
+            </h2>
+            <p class="section-heading__text">
+              Van sterke theoretische trajecten tot praktijkgerichte keuzes: de
+              programma’s zijn helder, toekomstgericht en afgestemd op talent.
+            </p>
+          </div>
+
+          <div class="products__grid">
+            <article class="product-card">
+              <img
+                class="product-card__image"
+                src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=900&q=80"
+                alt="Leerlingen in een klaslokaal"
+              />
+              <div class="product-card__body">
+                <h3 class="product-card__title">A-stroom</h3>
+                <p class="product-card__text">
+                  Brede basis met ruimte om interesses te verkennen en een
+                  sterke doorstroom voor later.
+                </p>
+                <p class="product-card__meta">
+                  Sterke fundamenten voor elke leerling
+                </p>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <img
+                class="product-card__image"
+                src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=80"
+                alt="Leerlingen die samenwerken"
+              />
+              <div class="product-card__body">
+                <h3 class="product-card__title">B-stroom</h3>
+                <p class="product-card__text">
+                  Praktischer leren, duidelijke begeleiding en een traject dat
+                  stap voor stap vooruitgang biedt.
+                </p>
+                <p class="product-card__meta">Leren door te doen</p>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <img
+                class="product-card__image"
+                src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=80"
+                alt="Technische opleiding in een lab"
+              />
+              <div class="product-card__body">
+                <h3 class="product-card__title">
+                  Technische en beroepsgerichte finaliteit
+                </h3>
+                <p class="product-card__text">
+                  Vakinhoud, stage-ervaring en duidelijke competenties voor
+                  studie of werk na het secundair.
+                </p>
+                <p class="product-card__meta">Praktijk en vakmanschap</p>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <img
+                class="product-card__image"
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80"
+                alt="Studenten in overleg"
+              />
+              <div class="product-card__body">
+                <h3 class="product-card__title">Doorstroomfinaliteit</h3>
+                <p class="product-card__text">
+                  Sterke algemene vorming voor leerlingen die later verder
+                  willen studeren aan hogeschool of universiteit.
+                </p>
+                <p class="product-card__meta">Voor een brede toekomst</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="news page__section"
+        id="nieuws"
+        aria-labelledby="news-title"
+      >
+        <div class="page__inner">
+          <div class="section-heading">
+            <p class="section-heading__label">Nieuws</p>
+            <h2 class="section-heading__title" id="news-title">
+              Recent nieuws uit de school
+            </h2>
+            <p class="section-heading__text">
+              Actuele schoolmomenten, projecten en aankondigingen houden
+              leerlingen, ouders en medewerkers verbonden met het leven op
+              campus.
+            </p>
+          </div>
+
+          <div class="news__grid">
+            <article class="news-card">
+              <img
+                class="news-card__image"
+                src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=900&q=80"
+                alt="Leerlingen op een schoolplein"
+              />
+              <div class="news-card__body">
+                <p class="news-card__date">12 april 2026</p>
+                <h3 class="news-card__title">
+                  Open campusdag brengt alle opleidingen samen
+                </h3>
+                <p class="news-card__text">
+                  Bezoekers maakten kennis met leerkrachten, leerlingen en de
+                  verschillende richtingen binnen BA.
+                </p>
+              </div>
+            </article>
+
+            <article class="news-card">
+              <img
+                class="news-card__image"
+                src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=80"
+                alt="Leerlingen in een workshop"
+              />
+              <div class="news-card__body">
+                <p class="news-card__date">3 april 2026</p>
+                <h3 class="news-card__title">
+                  Nieuwe vakprojecten in de praktijkrichtingen
+                </h3>
+                <p class="news-card__text">
+                  Leerlingen werken dit trimester aan echte opdrachten met
+                  aandacht voor techniek, zorg en samenwerking.
+                </p>
+              </div>
+            </article>
+
+            <article class="news-card">
+              <img
+                class="news-card__image"
+                src="https://images.unsplash.com/photo-1497486751825-1233686d5d80?auto=format&fit=crop&w=900&q=80"
+                alt="Schoolbibliotheek en studieomgeving"
+              />
+              <div class="news-card__body">
+                <p class="news-card__date">26 maart 2026</p>
+                <h3 class="news-card__title">
+                  Studietips en trajectbegeleiding voor het volgende trimester
+                </h3>
+                <p class="news-card__text">
+                  De studiebegeleiding ondersteunt leerlingen met planning,
+                  feedback en concrete tools op maat.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="campuses page__section"
+        id="campussen"
+        aria-labelledby="campuses-title"
+      >
+        <div class="page__inner">
+          <div class="section-heading">
+            <p class="section-heading__label">Campussen</p>
+            <h2 class="section-heading__title" id="campuses-title">
+              De verschillende campussen van Busleyden Atheneum
+            </h2>
+            <p class="section-heading__text">
+              Elke campus heeft een eigen profiel, maar samen vormen ze één
+              school met een duidelijke identiteit en sterke begeleiding.
+            </p>
+          </div>
+
+          <div class="campuses__grid">
+            <article class="campus-card campus-card--botaniek">
+              <div class="campus-card__media">
+                <img
+                  src="ba-logos/logo-botaniek.png"
+                  alt="Logo Botaniek"
+                  loading="lazy"
+                />
+              </div>
+              <div class="campus-card__body">
+                <h3 class="campus-card__title">Botaniek</h3>
+                <p class="campus-card__text">
+                  Zorg & welzijn met praktijklokalen en stages in een warme,
+                  mensgerichte campus.
+                </p>
+              </div>
+            </article>
+
+            <article class="campus-card campus-card--caputsteen">
+              <div class="campus-card__media">
+                <img
+                  src="ba-logos/logo-caput.png"
+                  alt="Logo Caputsteen"
+                  loading="lazy"
+                />
+              </div>
+              <div class="campus-card__body">
+                <h3 class="campus-card__title">Caputsteen</h3>
+                <p class="campus-card__text">
+                  STEM en techniek met ateliers, labo's en een sterk
+                  praktijkgerichte aanpak.
+                </p>
+              </div>
+            </article>
+
+            <article class="campus-card campus-card--de-beemden">
+              <div class="campus-card__media">
+                <img
+                  src="ba-logos/logo-debeemden.png"
+                  alt="Logo De Beemden"
+                  loading="lazy"
+                />
+              </div>
+              <div class="campus-card__body">
+                <h3 class="campus-card__title">De Beemden</h3>
+                <p class="campus-card__text">
+                  Eerste graad A- en B-stroom met brede basisvorming in een
+                  rustige, veilige leeromgeving.
+                </p>
+              </div>
+            </article>
+
+            <article class="campus-card campus-card--basisverpleegkunde">
+              <div class="campus-card__media">
+                <img
+                  src="ba-logos/logo-basisverpleegkunde.png"
+                  alt="Logo Basisverpleegkunde"
+                  loading="lazy"
+                />
+              </div>
+              <div class="campus-card__body">
+                <h3 class="campus-card__title">Basisverpleegkunde</h3>
+                <p class="campus-card__text">
+                  Volledige focus op verpleegkunde en zorg met medische
+                  simulatie en stagevoorbereiding.
+                </p>
+              </div>
+            </article>
+
+            <article class="campus-card campus-card--nekkerspoel">
+              <div class="campus-card__media">
+                <img
+                  src="ba-logos/logo-nekkerspoel.png"
+                  alt="Logo Nekkerspoel"
+                  loading="lazy"
+                />
+              </div>
+              <div class="campus-card__body">
+                <h3 class="campus-card__title">Nekkerspoel</h3>
+                <p class="campus-card__text">
+                  Kunst, creatie en media met ateliers, studio's en creatieve
+                  labs.
+                </p>
+              </div>
+            </article>
+
+            <article class="campus-card campus-card--pitzemburg">
+              <div class="campus-card__media">
+                <img
+                  src="ba-logos/logo-pitzemburg.png"
+                  alt="Logo Pitzemburg"
+                  loading="lazy"
+                />
+              </div>
+              <div class="campus-card__body">
+                <h3 class="campus-card__title">Pitzemburg</h3>
+                <p class="campus-card__text">
+                  Muziek en podiumkunsten met repetitieruimtes en artistieke,
+                  expressieve sfeer.
+                </p>
+              </div>
+            </article>
+
+            <article class="campus-card campus-card--stassart">
+              <div class="campus-card__media">
+                <img
+                  src="ba-logos/logo-stassart.png"
+                  alt="Logo Stassart"
+                  loading="lazy"
+                />
+              </div>
+              <div class="campus-card__body">
+                <h3 class="campus-card__title">Stassart</h3>
+                <p class="campus-card__text">
+                  Talen, economie en wetenschappen met sterke algemene vorming
+                  en doorstroomfocus.
+                </p>
+              </div>
+            </article>
+
+            <article class="campus-card campus-card--zandpoort">
+              <div class="campus-card__media">
+                <img
+                  src="ba-logos/logo-zandpoort.png"
+                  alt="Logo Zandpoort"
+                  loading="lazy"
+                />
+              </div>
+              <div class="campus-card__body">
+                <h3 class="campus-card__title">Zandpoort</h3>
+                <p class="campus-card__text">
+                  Sport, beweging en maatschappij met een dynamische, actieve
+                  leeromgeving.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer page__section" id="contact">
+      <div class="page__inner site-footer__grid">
+        <div class="site-footer__brand">
+          <p class="site-footer__logo">Busleyden Atheneum</p>
+          <p class="site-footer__text">
+            Een brede secundaire school in Mechelen met meerdere campussen en
+            duidelijke studierichtingen.
+          </p>
+        </div>
+
+        <div class="site-footer__contact">
+          <h2 class="site-footer__title">Contact</h2>
+          <ul class="site-footer__list">
+            <li>info@busleydenatheneum.be</li>
+            <li>+32 15 00 00 00</li>
+            <li>Mechelen, België</li>
+          </ul>
+        </div>
+
+        <div class="site-footer__social">
+          <h2 class="site-footer__title">Social</h2>
+          <ul
+            class="site-footer__list site-footer__list--inline"
+            aria-label="Sociale media"
+          >
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li>
+          </ul>
+        </div>
+
+        <div class="site-footer__links">
+          <h2 class="site-footer__title">Links</h2>
+          <ul class="site-footer__list">
+            <li><a href="#opleidingen">Opleidingen</a></li>
+            <li><a href="#campussen">Campussen</a></li>
+            <li><a href="#nieuws">Nieuws</a></li>
+            <li><a href="#home">Terug naar boven</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
