@@ -16,7 +16,6 @@ import ProductScreen from "../screens/ProductScreen";
 import NewsScreen from "../screens/NewsScreen";
 import CampusScreen from "../screens/CampusScreen";
 import CartScreen from "../screens/CartScreen";
-import LoginScreen from "../screens/LoginScreen";
 import ProductDetailsScreen from "../screens/ProductDetailsScreen";
 import NewsDetailsScreen from "../screens/NewsDetailsScreen";
 import CampusDetailsScreen from "../screens/CampusDetailsScreen";
@@ -213,16 +212,6 @@ const TabNavigator = () => (
 );
 
 const MainNavigator = () => {
-  const { user } = useApp();
-
-  if (!user) {
-    return (
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-      </Stack.Navigator>
-    );
-  }
-
   return (
     <Drawer.Navigator screenOptions={{ drawerActiveTintColor: Colors.primary }}>
       <Drawer.Screen

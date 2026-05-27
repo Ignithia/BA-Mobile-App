@@ -1,5 +1,5 @@
 export const Colors = {
-  primary: "#1f62a9", // Default primary (Caputsteen)
+  primary: "#86bc25", // Default primary (Caputsteen)
   campus: {
     botaniek: "#e85597",
     caputsteen: "#1f62a9",
@@ -13,6 +13,9 @@ export const Colors = {
   text: "#333333",
   background: "#ffffff",
   gray: "#f4f4f4",
+  grey: "#999999",
+  lightGrey: "#f4f4f4",
+  darkGrey: "#666666",
   white: "#ffffff",
   black: "#000000",
   error: "#ff5252",
@@ -25,4 +28,30 @@ export const Spacing = {
   md: 16,
   lg: 24,
   xl: 32,
+};
+
+export const Typography = {
+  h1: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: Colors.text,
+  },
+  h2: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: Colors.text,
+  },
+  h3: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: Colors.text,
+  },
+  body: {
+    fontSize: 16,
+    color: Colors.text,
+  },
+  caption: {
+    fontSize: 14,
+    color: "#666666",
+  },
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,35 +6,35 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
-import { Colors, Spacing } from "../theme/theme";
+import { Colors, Spacing, Typography } from "../theme/theme";
 import { CheckCircle2, ChevronRight } from "lucide-react-native";
-
-const INTERESTS = [
-  "Technologie",
-  "Zorg",
-  "Economie",
-  "Talen",
-  "Sport",
-  "Kunst",
-  "Wetenschappen",
-];
-
-const STUDIES = [
-  { id: "1", name: "Informatica", interests: ["Technologie", "Wetenschappen"] },
-  { id: "2", name: "Verpleegkunde", interests: ["Zorg", "Wetenschappen"] },
-  { id: "3", name: "Bedrijfskunde", interests: ["Economie", "Talen"] },
-  { id: "4", name: "Lichamelijke Opvoeding", interests: ["Sport"] },
-  {
-    id: "5",
-    name: "Grafische Vormgeving",
-    interests: ["Kunst", "Technologie"],
-  },
-  { id: "6", name: "Talen & Literatuur", interests: ["Talen", "Kunst"] },
-];
+import { fetchStromen, fetchStudiekeuzes } from "../services/api";
 
 const StudySeekerScreen = () => {
   const [selectedInterests, setSelectedInterests] = useState([]);
+  const [interests, setInterests] = useState([]);
+  const [studies, setStudies] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [stromenData, studieData] = await Promise.all([
+          fetchStromen(),
+          fetchStudiekeuzes(),
+        ]);
+        setInterests(stromenData);
+        setStudies(studieData);
+      } catch (error) {
+        console.error("Error loading study seeker data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
 
   const toggleInterest = (interest) => {
     if (selectedInterests.includes(interest)) {
@@ -44,11 +44,19 @@ const StudySeekerScreen = () => {
     }
   };
 
-  const filteredStudies = STUDIES.filter(
+  const filteredStudies = studies.filter(
     (study) =>
       selectedInterests.length === 0 ||
       study.interests.some((i) => selectedInterests.includes(i)),
   );
+
+  if (loading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -65,7 +73,7 @@ const StudySeekerScreen = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.interestList}
         >
-          {INTERESTS.map((interest) => (
+          {interests.map((interest) => (
             <TouchableOpacity
               key={interest}
               style={[
@@ -91,6 +99,7 @@ const StudySeekerScreen = () => {
 
       <FlatList
         data={filteredStudies}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.studyCard}>
             <View style={styles.studyInfo}>
@@ -103,15 +112,13 @@ const StudySeekerScreen = () => {
                 ))}
               </View>
             </View>
-            <ChevronRight color={Colors.primary} />
+            <ChevronRight color={Colors.grey} size={20} />
           </View>
         )}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.list}
         ListEmptyComponent={
-          <Text style={styles.emptyText}>
-            Geen studies gevonden voor deze interesses.
-          </Text>
+          <View style={styles.center}>
+            <Text style={styles.noResults}>Geen studies gevonden.</Text>
+          </View>
         }
       />
     </View>
@@ -119,50 +126,101 @@ const StudySeekerScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.background },
-  header: { padding: Spacing.md, backgroundColor: Colors.primary },
-  title: { fontSize: 22, fontWeight: "bold", color: "white" },
-  subtitle: { fontSize: 14, color: "rgba(255,255,255,0.8)", marginTop: 4 },
-  filterSection: { marginVertical: Spacing.md },
-  interestList: { paddingHorizontal: Spacing.md },
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background,
+  },
+  center: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: Spacing.xl,
+  },
+  header: {
+    padding: Spacing.lg,
+    backgroundColor: Colors.white,
+  },
+  title: {
+    ...Typography.h2,
+    color: Colors.text,
+  },
+  subtitle: {
+    ...Typography.body,
+    color: Colors.grey,
+    marginTop: Spacing.xs,
+  },
+  filterSection: {
+    paddingVertical: Spacing.md,
+    backgroundColor: Colors.white,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.lightGrey,
+  },
+  interestList: {
+    paddingHorizontal: Spacing.md,
+  },
   interestChip: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
     borderRadius: 20,
-    backgroundColor: Colors.gray,
-    marginRight: 8,
+    backgroundColor: Colors.lightGrey,
+    marginRight: Spacing.sm,
     borderWidth: 1,
-    borderColor: "#ddd",
+    borderColor: "transparent",
   },
   interestChipSelected: {
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.primary + "10",
     borderColor: Colors.primary,
   },
-  interestText: { color: "#333" },
-  interestTextSelected: { color: "white", fontWeight: "bold" },
-  list: { padding: Spacing.md },
+  interestText: {
+    ...Typography.body,
+    color: Colors.text,
+  },
+  interestTextSelected: {
+    color: Colors.primary,
+    fontWeight: "600",
+  },
   studyCard: {
-    backgroundColor: "white",
-    padding: Spacing.md,
-    borderRadius: 12,
-    marginBottom: Spacing.sm,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    padding: Spacing.md,
+    backgroundColor: Colors.white,
+    marginHorizontal: Spacing.md,
+    marginTop: Spacing.md,
+    borderRadius: 12,
     elevation: 2,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
-  studyName: { fontSize: 16, fontWeight: "bold", marginBottom: 4 },
-  tagContainer: { flexDirection: "row", flexWrap: "wrap" },
+  studyInfo: {
+    flex: 1,
+  },
+  studyName: {
+    ...Typography.h3,
+    color: Colors.text,
+  },
+  tagContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: Spacing.xs,
+  },
   tag: {
-    backgroundColor: Colors.gray,
-    paddingHorizontal: 6,
+    backgroundColor: Colors.lightGrey,
+    paddingHorizontal: Spacing.sm,
     paddingVertical: 2,
     borderRadius: 4,
-    marginRight: 4,
-    marginTop: 4,
+    marginRight: Spacing.xs,
+    marginBottom: Spacing.xs,
   },
-  tagText: { fontSize: 10, color: "#666" },
-  emptyText: { textAlign: "center", marginTop: 40, color: "gray" },
+  tagText: {
+    fontSize: 10,
+    color: Colors.grey,
+  },
+  noResults: {
+    ...Typography.body,
+    color: Colors.grey,
+  },
 });
 
 export default StudySeekerScreen;

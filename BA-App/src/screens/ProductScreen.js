@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import { Colors, Spacing } from "../theme/theme";
-import { fetchProducts } from "../services/api";
+import { fetchProducts, fetchCategories } from "../services/api";
 import ProductCard from "../components/ProductCard";
 import {
   Search,
@@ -22,11 +22,10 @@ import {
   X,
 } from "lucide-react-native";
 
-const CATEGORIES = ["Alles", "Kledij", "Schoolbenodigdheden"];
-
 const ProductScreen = ({ navigation }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [categories, setCategories] = useState(["Alles"]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("Alles");
@@ -34,18 +33,22 @@ const ProductScreen = ({ navigation }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    loadProducts();
+    loadData();
   }, []);
 
   useEffect(() => {
     applyFilters();
   }, [search, category, sortBy, products]);
 
-  const loadProducts = async () => {
+  const loadData = async () => {
     try {
       setLoading(true);
-      const data = await fetchProducts();
-      setProducts(data);
+      const [prodData, catData] = await Promise.all([
+        fetchProducts(),
+        fetchCategories(),
+      ]);
+      setProducts(prodData);
+      setCategories(catData);
       setError(null);
     } catch (err) {
       setError("Kon producten niet laden.");
@@ -116,7 +119,7 @@ const ProductScreen = ({ navigation }) => {
           showsHorizontalScrollIndicator={false}
           style={styles.filterRow}
         >
-          {CATEGORIES.map((cat) => (
+          {categories.map((cat) => (
             <TouchableOpacity
               key={cat}
               style={[styles.chip, category === cat && styles.chipActive]}
