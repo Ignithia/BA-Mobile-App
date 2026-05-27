@@ -48,7 +48,7 @@ const getCampusColor = (name, apiColor) => {
 const MOCK_DATA = {
   products: Array.from({ length: 12 }, (_, i) => ({
     id: `prod-${i + 1}`,
-    name: `Berthout Product ${i + 1}`,
+    name: `Busleyden Atheneum Product ${i + 1}`,
     price: Math.floor(Math.random() * 50) + 10,
     category: i % 2 === 0 ? "Kledij" : "Schoolbenodigdheden",
     image: `https://picsum.photos/seed/prod${i}/400/300`,
@@ -116,13 +116,13 @@ const MOCK_DATA = {
       image: "https://picsum.photos/seed/zan/400/300",
     },
   ],
-  stromen: [
-    "Technologie",
-    "Zorg",
-    "Economie",
-    "Talen",
-    "Sport",
-    "Kunst",
+  opleidingen: [
+    "Informatica",
+    "Verpleegkunde",
+    "Bedrijfskunde",
+    "Lichamelijke Opvoeding",
+    "Grafische Vormgeving",
+    "Talen & Literatuur",
     "Wetenschappen",
   ],
   studiekeuzes: [
@@ -150,55 +150,90 @@ const stripHtml = (html) => {
 
 export const fetchProducts = async () => {
   try {
-    const items = await fetchWebflow(COLLECTIONS.PRODUCTS);
+    const response = await fetch(
+      `${WEBFLOW_API_BASE}/sites/${SITE_ID}/products`,
+      {
+        headers: {
+          Authorization: `Bearer ${API_TOKEN}`,
+          "accept-version": "2.0.0",
+        },
+      },
+    );
+    const json = await response.json();
+    const items = json.items || [];
 
-    if (!items || items.length === 0) {
+    if (items.length === 0) {
       return MOCK_DATA.products;
     }
 
-    return items.map((item) => {
-      // Very robust price extraction for Webflow Ecommerce and CMS
-      // CMS uses fieldData, Ecommerce sometimes puts it at top level or in fieldData
-      let rawPrice = 0;
+    // Load categories for mapping name
+    let categoryMap = {};
+    try {
+      const cats = await fetchWebflow(COLLECTIONS.CATEGORIES);
+      cats.forEach((c) => {
+        categoryMap[c.id] = c.fieldData.name;
+      });
+    } catch (e) {
+      console.warn("Could not load categories for mapping");
+    }
 
-      // Check for Ecommerce 'price' object (variants)
-      if (item.fieldData?.price?.value !== undefined) {
-        rawPrice = item.fieldData.price.value;
+    return items.map((item) => {
+      // Define properties from item structure
+      const product = item?.product || {};
+      const productFieldData = product?.fieldData || item?.fieldData || {};
+      const skuFieldData = item?.skus?.[0]?.fieldData || {};
+
+      // Get category name
+      const firstCategoryId = Array.isArray(productFieldData.category)
+        ? productFieldData.category[0]
+        : productFieldData.category;
+      const categoryName = categoryMap[firstCategoryId] || "Algemeen";
+
+      // Price extraction logic
+      let rawPrice = 0;
+      let shouldDivide = false;
+
+      // Check Ecommerce SKU structure first (most accurate for prices)
+      if (skuFieldData?.price?.value !== undefined) {
+        rawPrice = skuFieldData.price.value;
+        shouldDivide = true;
       } else if (item.price?.value !== undefined) {
         rawPrice = item.price.value;
+        shouldDivide = true;
       } else {
         // Fallback to various common field names
         rawPrice =
-          item.fieldData?.price ??
-          item.fieldData?.Price ??
-          item.fieldData?.prijs ??
-          item.fieldData?.Prijs ??
-          item.price ??
-          item.Price ??
+          productFieldData.price ??
+          productFieldData.Price ??
+          productFieldData.prijs ??
+          skuFieldData.price ??
           0;
       }
 
-      // If it's still a string (e.g. "€ 0,50"), clean it
+      // Convert string prices like "€ 0,50"
       if (typeof rawPrice === "string") {
         rawPrice =
           parseFloat(rawPrice.replace(/[^\d.,]/g, "").replace(",", ".")) || 0;
       }
 
+      const finalPrice = shouldDivide
+        ? Number((rawPrice / 100).toFixed(2))
+        : Number(Number(rawPrice).toFixed(2));
+
       return {
-        id: item.id,
-        name: item.fieldData.name,
-        price: Number(rawPrice),
-        category: item.fieldData.category || "Algemeen",
+        id: product?.id || item.id,
+        name: productFieldData.name || "Onbekend Product",
+        price: finalPrice,
+        category: categoryName,
         image:
-          item.fieldData.image?.url ||
-          item.fieldData["main-image"]?.url ||
-          item.fieldData["product-image"]?.url ||
+          skuFieldData["main-image"]?.url ||
+          productFieldData.image?.url ||
           `https://picsum.photos/seed/${item.id}/400/300`,
         description:
-          item.fieldData.description || item.fieldData.beschrijving || "",
-        rating: item.fieldData.rating || 5,
-        isNew: item.fieldData["is-new"] || item.fieldData.nieuw || false,
-        isSale: item.fieldData["is-sale"] || item.fieldData.promotie || false,
+          productFieldData.subtitle || productFieldData.description || "",
+        rating: productFieldData.rating || 5,
+        isNew: productFieldData["is-new"] || false,
+        isSale: productFieldData["is-sale"] || false,
       };
     });
   } catch (error) {
@@ -298,6 +333,12 @@ export const fetchStudiekeuzes = async () => {
     return items.map((item) => ({
       id: item.id,
       name: item.fieldData.name,
+      locationId: item.fieldData.location,
+      stroomId: item.fieldData.stroom,
+      image: item.fieldData["study-image"]?.url,
+      info: item.fieldData["study-information"],
+      // Keep interests for compatibility with StudySeekerScreen if needed,
+      // but map it from the stroom reference name if possible in future.
       interests: item.fieldData.interests
         ? item.fieldData.interests.split(",")
         : [],

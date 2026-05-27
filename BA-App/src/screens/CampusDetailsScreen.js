@@ -19,19 +19,34 @@ import {
   Navigation,
   BookOpen,
 } from "lucide-react-native";
-import { fetchStromen } from "../services/api";
+import { fetchStudiekeuzes } from "../services/api";
 
 const CampusDetailsScreen = ({ route, navigation }) => {
   const { campus } = route.params || {};
-  const [stromen, setStromen] = useState([]);
+  const [opleidingen, setOpleidingen] = useState([]);
 
   useEffect(() => {
-    const loadStromen = async () => {
-      const data = await fetchStromen();
-      setStromen(data);
+    const loadOpleidingen = async () => {
+      // Fetch specifically for the studiekeuzes collection
+      const data = await fetchStudiekeuzes();
+
+      // Filter opleidingen based on the location reference from CMS
+      let filtered = data
+        .filter((item) => item.locationId === campus.id)
+        .map((item) => item.name);
+
+      // If no specifically linked ones are found, show a fallback selection
+      if (filtered.length === 0) {
+        filtered = data
+          .map((d) => d.name)
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 6);
+      }
+
+      setOpleidingen(filtered);
     };
-    loadStromen();
-  }, []);
+    loadOpleidingen();
+  }, [campus.id]);
 
   if (!campus) {
     return (
@@ -123,7 +138,7 @@ const CampusDetailsScreen = ({ route, navigation }) => {
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Opleidingen op deze campus</Text>
           <View style={styles.stromenGrid}>
-            {stromen.map((stroom, index) => (
+            {opleidingen.slice(0, 8).map((opleiding, index) => (
               <View
                 key={index}
                 style={[
@@ -133,7 +148,7 @@ const CampusDetailsScreen = ({ route, navigation }) => {
               >
                 <BookOpen size={14} color={campus.color} />
                 <Text style={[styles.stroomText, { color: campus.color }]}>
-                  {stroom}
+                  {opleiding}
                 </Text>
               </View>
             ))}
