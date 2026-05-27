@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { Colors, Spacing } from '../theme/theme';
+import React from "react";
+import { View, Text, StyleSheet, FlatList } from "react-native";
+import { Colors, Spacing } from "../theme/theme";
 
 const HomeScreen = () => {
   return (
@@ -15,12 +15,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background,
     padding: Spacing.md,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.primary,
   },
 });

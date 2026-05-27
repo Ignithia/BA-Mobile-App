@@ -1,37 +1,43 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
-import { Colors, Spacing } from '../theme/theme';
-import { Star } from 'lucide-react-native';
+import React from "react";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import { Colors, Spacing } from "../theme/theme";
+import { Star } from "lucide-react-native";
 
 const ProductCard = ({ product, onPress, showPrice = true }) => {
   return (
-    <Pressable 
-      style={({ pressed }) => [
-        styles.card,
-        pressed && styles.pressed
-      ]} 
+    <Pressable
+      style={({ pressed }) => [styles.card, pressed && styles.pressed]}
       onPress={() => onPress(product)}
     >
       <Image source={{ uri: product.image }} style={styles.image} />
-      
+
       {product.isNew && (
         <View style={[styles.label, { backgroundColor: Colors.success }]}>
           <Text style={styles.labelText}>NIEUW</Text>
         </View>
       )}
-      
+
       {product.isSale && (
-        <View style={[styles.label, { backgroundColor: Colors.error, top: product.isNew ? 35 : 10 }]}>
+        <View
+          style={[
+            styles.label,
+            { backgroundColor: Colors.error, top: product.isNew ? 35 : 10 },
+          ]}
+        >
           <Text style={styles.labelText}>SALE</Text>
         </View>
       )}
 
       <View style={styles.content}>
         <Text style={styles.category}>{product.category}</Text>
-        <Text style={styles.name} numberOfLines={1}>{product.name}</Text>
-        
+        <Text style={styles.name} numberOfLines={1}>
+          {product.name}
+        </Text>
+
         <View style={styles.footer}>
-          {showPrice && <Text style={styles.price}>€{product.price.toFixed(2)}</Text>}
+          {showPrice && (
+            <Text style={styles.price}>€{product.price.toFixed(2)}</Text>
+          )}
           <View style={styles.ratingContainer}>
             <Star size={14} color="#FFD700" fill="#FFD700" />
             <Text style={styles.rating}>{product.rating}</Text>
@@ -53,52 +59,52 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   pressed: {
     opacity: 0.8,
     transform: [{ scale: 0.98 }],
   },
   image: {
-    width: '100%',
+    width: "100%",
     height: 120,
-    resizeMode: 'cover',
+    resizeMode: "cover",
   },
   content: {
     padding: Spacing.sm,
   },
   category: {
     fontSize: 10,
-    color: 'gray',
-    textTransform: 'uppercase',
+    color: "gray",
+    textTransform: "uppercase",
   },
   name: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginVertical: 4,
   },
   footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginTop: 4,
   },
   price: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.primary,
   },
   ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   rating: {
     fontSize: 12,
     marginLeft: 2,
-    color: '#666',
+    color: "#666",
   },
   label: {
-    position: 'absolute',
+    position: "absolute",
     top: 10,
     left: 10,
     paddingHorizontal: 8,
@@ -106,9 +112,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   labelText: {
-    color: 'white',
+    color: "white",
     fontSize: 10,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 

@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Colors, Spacing } from '../theme/theme';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { Colors, Spacing } from "../theme/theme";
 
 const NewsDetailsScreen = ({ route }) => {
   const { newsId } = route.params || {};
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 

@@ -1,24 +1,25 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
-import { Colors, Spacing } from '../theme/theme';
+import React from "react";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import { Colors, Spacing } from "../theme/theme";
 
 const NewsCard = ({ item, onPress }) => {
   return (
-    <Pressable 
-      style={({ pressed }) => [
-        styles.card,
-        pressed && styles.pressed
-      ]} 
+    <Pressable
+      style={({ pressed }) => [styles.card, pressed && styles.pressed]}
       onPress={() => onPress(item)}
     >
       <Image source={{ uri: item.image }} style={styles.image} />
       <View style={styles.content}>
         <View style={styles.header}>
-            <Text style={styles.category}>{item.category}</Text>
-            <Text style={styles.date}>{item.date}</Text>
+          <Text style={styles.category}>{item.category}</Text>
+          <Text style={styles.date}>{item.date}</Text>
         </View>
-        <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
-        <Text style={styles.excerpt} numberOfLines={2}>{item.excerpt}</Text>
+        <Text style={styles.title} numberOfLines={2}>
+          {item.title}
+        </Text>
+        <Text style={styles.excerpt} numberOfLines={2}>
+          {item.excerpt}
+        </Text>
       </View>
     </Pressable>
   );
@@ -34,8 +35,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-    overflow: 'hidden',
-    flexDirection: 'row',
+    overflow: "hidden",
+    flexDirection: "row",
   },
   pressed: {
     opacity: 0.9,
@@ -50,27 +51,27 @@ const styles = StyleSheet.create({
     padding: Spacing.sm,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 4,
   },
   category: {
     fontSize: 10,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.primary,
   },
   date: {
     fontSize: 10,
-    color: 'gray',
+    color: "gray",
   },
   title: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 4,
   },
   excerpt: {
     fontSize: 12,
-    color: '#666',
+    color: "#666",
   },
 });
 

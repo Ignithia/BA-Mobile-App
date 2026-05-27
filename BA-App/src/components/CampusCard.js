@@ -1,25 +1,30 @@
-import React from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { Colors, Spacing } from '../theme/theme';
-import { MapPin } from 'lucide-react-native';
+import React from "react";
+import { View, Text, StyleSheet, Pressable } from "react-native";
+import { Colors, Spacing } from "../theme/theme";
+import { MapPin } from "lucide-react-native";
 
 const CampusCard = ({ campus, onPress }) => {
   return (
-    <Pressable 
+    <Pressable
       style={({ pressed }) => [
         styles.card,
         { borderLeftColor: campus.color },
-        pressed && styles.pressed
-      ]} 
+        pressed && styles.pressed,
+      ]}
       onPress={() => onPress(campus)}
     >
       <View style={styles.content}>
-        <View style={[styles.iconContainer, { backgroundColor: campus.color + '20' }]}>
-            <MapPin size={24} color={campus.color} />
+        <View
+          style={[
+            styles.iconContainer,
+            { backgroundColor: campus.color + "20" },
+          ]}
+        >
+          <MapPin size={24} color={campus.color} />
         </View>
         <View style={styles.textContainer}>
-            <Text style={styles.name}>{campus.name}</Text>
-            <Text style={styles.description}>Berthoutinstituut Campus</Text>
+          <Text style={styles.name}>{campus.name}</Text>
+          <Text style={styles.description}>Berthoutinstituut Campus</Text>
         </View>
       </View>
     </Pressable>
@@ -44,15 +49,15 @@ const styles = StyleSheet.create({
     transform: [{ translateX: 5 }],
   },
   content: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   iconContainer: {
     width: 50,
     height: 50,
     borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: Spacing.md,
   },
   textContainer: {
@@ -60,11 +65,11 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   description: {
     fontSize: 14,
-    color: 'gray',
+    color: "gray",
   },
 });
 
