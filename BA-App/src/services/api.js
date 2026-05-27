@@ -52,7 +52,7 @@ const MOCK_DATA = {
     price: Math.floor(Math.random() * 50) + 10,
     category: i % 2 === 0 ? "Kledij" : "Schoolbenodigdheden",
     image: `https://picsum.photos/seed/prod${i}/400/300`,
-    description: "Dit is een kwaliteitsvol product van het Berthoutinstituut.",
+    description: "Dit is een kwaliteitsvol product van het Busleyden Atheneum.",
     rating: (Math.random() * 2 + 3).toFixed(1),
     isNew: i < 3,
     isSale: i > 8,
@@ -157,16 +157,28 @@ export const fetchProducts = async () => {
     }
 
     return items.map((item) => {
-      // Robust price extraction: try various common slugs and case variations
-      let rawPrice =
-        item.fieldData.price ??
-        item.fieldData.Price ??
-        item.fieldData.prijs ??
-        item.fieldData.Prijs ??
-        item.price ??
-        item.Price ??
-        0;
+      // Very robust price extraction for Webflow Ecommerce and CMS
+      // CMS uses fieldData, Ecommerce sometimes puts it at top level or in fieldData
+      let rawPrice = 0;
 
+      // Check for Ecommerce 'price' object (variants)
+      if (item.fieldData?.price?.value !== undefined) {
+        rawPrice = item.fieldData.price.value;
+      } else if (item.price?.value !== undefined) {
+        rawPrice = item.price.value;
+      } else {
+        // Fallback to various common field names
+        rawPrice =
+          item.fieldData?.price ??
+          item.fieldData?.Price ??
+          item.fieldData?.prijs ??
+          item.fieldData?.Prijs ??
+          item.price ??
+          item.Price ??
+          0;
+      }
+
+      // If it's still a string (e.g. "€ 0,50"), clean it
       if (typeof rawPrice === "string") {
         rawPrice =
           parseFloat(rawPrice.replace(/[^\d.,]/g, "").replace(",", ".")) || 0;

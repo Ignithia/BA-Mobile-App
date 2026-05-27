@@ -69,7 +69,7 @@ const HomeStack = () => (
     <Stack.Screen
       name="Home"
       component={HomeScreen}
-      options={{ title: "Berthoutinstituut" }}
+      options={{ title: "Busleyden Atheneum" }}
     />
     <Stack.Screen
       name="ProductDetails"

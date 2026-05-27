@@ -24,7 +24,7 @@ const CampusCard = ({ campus, onPress }) => {
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.name}>{campus.name}</Text>
-          <Text style={styles.description}>Berthoutinstituut Campus</Text>
+          <Text style={styles.description}>Busleyden Atheneum</Text>
         </View>
       </View>
     </Pressable>

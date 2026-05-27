@@ -115,7 +115,7 @@ const CampusDetailsScreen = ({ route, navigation }) => {
             </View>
             <View style={styles.infoTextContainer}>
               <Text style={styles.infoLabel}>Email</Text>
-              <Text style={styles.infoValue}>info.{campus.id}@ba.be</Text>
+              <Text style={styles.infoValue}>info@ba.be</Text>
             </View>
           </View>
         </View>
